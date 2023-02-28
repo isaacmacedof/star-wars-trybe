@@ -1,10 +1,12 @@
 import React from 'react';
 import PlanetProvider from './contex/PlanetProvider';
+import FormFilter from './components/FormFilter';
 import Table from './components/Table';
 
 function App() {
   return (
     <PlanetProvider>
+      <FormFilter />
       <Table />
     </PlanetProvider>
   );
