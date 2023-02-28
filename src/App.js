@@ -1,9 +1,12 @@
 import React from 'react';
-import './App.css';
+import PlanetProvider from './contex/PlanetProvider';
+import Table from './components/Table';
 
 function App() {
   return (
-    <span>Isaac stay here!</span>
+    <PlanetProvider>
+      <Table />
+    </PlanetProvider>
   );
 }
 
