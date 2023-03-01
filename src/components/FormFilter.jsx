@@ -13,22 +13,42 @@ function FormFilter() {
     column: 'population',
     condition: 'maior que',
     value: '0',
+    id: 0,
   });
-
-  const clickButton = () => {
-    setNumberFilter([...numberFilter, selected]);
-    setSelected({
-      column: 'population',
-      condition: 'maior que',
-      value: '0',
-    });
-  };
 
   const filterOptions = (op) => !numberFilter
     .find((filtro) => op === filtro.column);
 
+  const clickButtonFilter = () => {
+    setNumberFilter([...numberFilter, selected]);
+
+    const retorno = ['population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water'].filter(filterOptions);
+
+    setSelected({
+      column: retorno[0],
+      condition: 'maior que',
+      value: '0',
+      id: selected.id + 1,
+    });
+  };
+
+  const clickButtonRemoveAllFilter = () => {
+    setNumberFilter([]);
+  };
+
+  const clickButtonRemoveSelectedFilter = (e) => {
+    const ids = e.target.id;
+
+    const removedFilter = numberFilter.filter((filter) => Number(ids) !== filter.id);
+
+    setNumberFilter(removedFilter);
+  };
+
   console.log(numberFilter);
-  console.log(selected);
 
   return (
     <div>
@@ -79,10 +99,34 @@ function FormFilter() {
         />
         <button
           data-testid="button-filter"
-          onClick={ clickButton }
+          onClick={ clickButtonFilter }
         >
           FILTRAR
         </button>
+        <button
+          data-testid="button-remove-filters"
+          onClick={ clickButtonRemoveAllFilter }
+        >
+          REMOVER FILTROS
+        </button>
+      </div>
+      <div>
+        { numberFilter.map((filter, index) => (
+          <p key={ index } data-testid="filter">
+            { filter.column }
+            {' '}
+            { filter.condition }
+            {' '}
+            { filter.value }
+            {' '}
+            <button
+              id={ filter.id }
+              onClick={ clickButtonRemoveSelectedFilter }
+            >
+              del
+            </button>
+          </p>
+        )) }
       </div>
     </div>
   );
