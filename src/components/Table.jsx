@@ -2,12 +2,28 @@ import React, { useContext } from 'react';
 import PlanetContext from '../contex/PlanetContext';
 
 function Table() {
-  const { planets, planetName } = useContext(PlanetContext);
+  const { planets, planetName, numberFilter } = useContext(PlanetContext);
 
   const filtred = () => {
     const filterByName = planets.filter((e) => e.name
       .toUpperCase().includes(planetName.toUpperCase()));
-    return filterByName;
+
+    const filterByNumber = filterByName.filter((p) => {
+      const filterResults = numberFilter.map(({ column, condition, value }) => {
+        switch (condition) {
+        case 'maior que':
+          return Number(p[column]) > Number(value);
+        case 'menor que':
+          return Number(p[column]) < Number(value);
+        case 'igual a':
+          return Number(p[column]) === Number(value);
+        default:
+          return true;
+        }
+      });
+      return filterResults.every((el) => el);
+    });
+    return filterByNumber;
   };
 
   return (

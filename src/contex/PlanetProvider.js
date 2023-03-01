@@ -7,6 +7,7 @@ export default function PlanetProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [planetName, setPlanetName] = useState('');
   const [filtredPlanets, setFiltredPlanets] = useState([]);
+  const [numberFilter, setNumberFilter] = useState([]);
 
   useEffect(() => {
     searchPlanets(setPlanets);
@@ -15,8 +16,10 @@ export default function PlanetProvider({ children }) {
   const indexedPlanets = { // se não indexar dá problema com o linter :C //
     planets,
     planetName,
-    setPlanetName,
+    numberFilter,
     filtredPlanets,
+    setNumberFilter,
+    setPlanetName,
     setFiltredPlanets,
   };
 
