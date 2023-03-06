@@ -11,14 +11,12 @@ function Table() {
     const filterByNumber = filterByName.filter((p) => {
       const filterResults = numberFilter.map(({ column, condition, value }) => {
         switch (condition) {
-        case 'maior que':
-          return Number(p[column]) > Number(value);
         case 'menor que':
           return Number(p[column]) < Number(value);
         case 'igual a':
           return Number(p[column]) === Number(value);
         default:
-          return true;
+          return Number(p[column]) > Number(value);
         }
       });
       return filterResults.every((el) => el);

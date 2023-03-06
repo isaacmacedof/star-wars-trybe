@@ -46,6 +46,8 @@ function FormFilter() {
 
   const clickButtonRemoveAllFilter = () => {
     setNumberFilter([]);
+    setOrder({});
+    setPlanetName('');
   };
 
   const clickButtonRemoveSelectedFilter = (e) => {
@@ -81,7 +83,7 @@ function FormFilter() {
         >
           {opitions
             .filter(filterOptions).map((column) => (
-              <option key={ column } value={ column }>
+              <option data-testid="filterOptions" key={ column } value={ column }>
                 { column }
               </option>
             ))}
