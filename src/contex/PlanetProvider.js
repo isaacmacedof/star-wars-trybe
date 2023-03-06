@@ -8,6 +8,7 @@ export default function PlanetProvider({ children }) {
   const [planetName, setPlanetName] = useState('');
   const [filtredPlanets, setFiltredPlanets] = useState([]);
   const [numberFilter, setNumberFilter] = useState([]);
+  const [order, setOrder] = useState({});
 
   useEffect(() => {
     searchPlanets(setPlanets);
@@ -18,9 +19,11 @@ export default function PlanetProvider({ children }) {
     planetName,
     numberFilter,
     filtredPlanets,
+    order,
     setNumberFilter,
     setPlanetName,
     setFiltredPlanets,
+    setOrder,
   };
 
   return (

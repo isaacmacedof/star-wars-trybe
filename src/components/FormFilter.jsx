@@ -7,7 +7,14 @@ function FormFilter() {
     numberFilter,
     setPlanetName,
     setNumberFilter,
+    setOrder,
   } = useContext(PlanetContext);
+
+  const opitions = ['population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water'];
 
   const [selected, setSelected] = useState({
     column: 'population',
@@ -16,17 +23,18 @@ function FormFilter() {
     id: 0,
   });
 
+  const [preview, setPreview] = useState({
+    column: 'population',
+    direction: 'ASC',
+  });
+
   const filterOptions = (op) => !numberFilter
     .find((filtro) => op === filtro.column);
 
   const clickButtonFilter = () => {
     setNumberFilter([...numberFilter, selected]);
 
-    const retorno = ['population',
-      'orbital_period',
-      'diameter',
-      'rotation_period',
-      'surface_water'].filter(filterOptions);
+    const retorno = opitions.filter(filterOptions);
 
     setSelected({
       column: retorno[0],
@@ -48,7 +56,9 @@ function FormFilter() {
     setNumberFilter(removedFilter);
   };
 
-  console.log(numberFilter);
+  const clickButtonOrderSubmit = () => {
+    setOrder(preview);
+  };
 
   return (
     <div>
@@ -69,11 +79,7 @@ function FormFilter() {
           value={ selected.column }
           onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }
         >
-          {['population',
-            'orbital_period',
-            'diameter',
-            'rotation_period',
-            'surface_water']
+          {opitions
             .filter(filterOptions).map((column) => (
               <option key={ column } value={ column }>
                 { column }
@@ -108,6 +114,43 @@ function FormFilter() {
           onClick={ clickButtonRemoveAllFilter }
         >
           REMOVER FILTROS
+        </button>
+        <select
+          data-testid="column-sort"
+          value={ preview.column }
+          onChange={ (e) => setPreview({ ...preview, column: e.target.value }) }
+        >
+          { opitions.map((column) => (
+            <option key={ column } value={ column }>
+              { column }
+            </option>
+          )) }
+        </select>
+        <input
+          type="radio"
+          data-testid="column-sort-input-asc"
+          value="ASC"
+          name="Opition"
+          onClick={ (e) => setPreview({ ...preview, direction: e.target.value }) }
+        />
+        {' '}
+        Ascendente
+        <input
+          type="radio"
+          data-testid="column-sort-input-desc"
+          value="DESC"
+          name="Opition"
+          onClick={ (e) => setPreview({ ...preview, direction: e.target.value }) }
+        />
+        {' '}
+        Descendente
+        {' '}
+        <button
+          type="button"
+          data-testid="column-sort-button"
+          onClick={ clickButtonOrderSubmit }
+        >
+          Ordenar
         </button>
       </div>
       <div>

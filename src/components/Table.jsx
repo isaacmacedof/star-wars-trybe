@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PlanetContext from '../contex/PlanetContext';
 
 function Table() {
-  const { planets, planetName, numberFilter } = useContext(PlanetContext);
+  const { planets, planetName, numberFilter, order } = useContext(PlanetContext);
 
   const filtred = () => {
     const filterByName = planets.filter((e) => e.name
@@ -26,6 +26,26 @@ function Table() {
     return filterByNumber;
   };
 
+  const ordenaDados = () => {
+    const negativeNumber = -1;
+    const { column, direction } = order;
+    const planetsFiltred = filtred();
+    const planetsFiltredNoUnknown = planetsFiltred
+      .filter((planet) => planet[column] === 'unknown');
+
+    if (Object.keys(order).length === 0) return planetsFiltred;
+
+    if (direction === 'ASC') {
+      const result = planetsFiltred.filter((planet) => planet[column] !== 'unknown')
+        .sort((a, b) => ((Number(a[column]) > Number(b[column])) ? 1 : negativeNumber));
+      return [...result, ...planetsFiltredNoUnknown];
+    } if (direction === 'DESC') {
+      const result = planetsFiltred.filter((planet) => planet[column] !== 'unknown')
+        .sort((a, b) => ((Number(a[column]) < Number(b[column])) ? 1 : negativeNumber));
+      return [...result, ...planetsFiltredNoUnknown];
+    }
+  };
+
   return (
     <table>
       <thead>
@@ -46,9 +66,9 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        { filtred().map((planet) => (
+        { ordenaDados().map((planet) => (
           <tr key={ planet.name }>
-            <td>{ planet.name }</td>
+            <td data-testid="planet-name">{ planet.name }</td>
             <td>{ planet.rotation_period }</td>
             <td>{ planet.orbital_period }</td>
             <td>{ planet.diameter }</td>
