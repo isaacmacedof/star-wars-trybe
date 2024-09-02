@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useContext, useState } from 'react';
 import PlanetContext from '../contex/PlanetContext';
+import '../styles/FormFilter.css';
 
 function FormFilter() {
   const {
@@ -64,113 +66,126 @@ function FormFilter() {
 
   return (
     <div>
-      <div>
-        <h1>Projeto Star Wars - Trybe</h1>
-        <input
-          value={ planetName }
-          data-testid="name-filter"
-          placeholder="Insert a name"
-          onChange={ (e) => {
-            setPlanetName(e.target.value);
-          } }
-        />
+      <div className="container-header">
+        <h1>Busque por planetas do Universo StarWars</h1>
       </div>
-      <div>
-        <select
-          data-testid="column-filter"
-          value={ selected.column }
-          onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }
-        >
-          {opitions
-            .filter(filterOptions).map((column) => (
-              <option data-testid="filterOptions" key={ column } value={ column }>
+      <div className="container-filters">
+        <div className="container-filters-name">
+          <input
+            value={ planetName }
+            data-testid="name-filter"
+            placeholder="Digite aqui o nome de um planeta do Universo StarWars"
+            onChange={ (e) => {
+              setPlanetName(e.target.value);
+            } }
+          />
+        </div>
+        <div className="container-filters-numeric">
+          <label htmlFor="column">
+            {'Colunas: '}
+            <select
+              data-testid="column-filter"
+              name="column"
+              value={ selected.column }
+              onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }
+            >
+              {opitions
+                .filter(filterOptions).map((column) => (
+                  <option data-testid="filterOptions" key={ column } value={ column }>
+                    { column }
+                  </option>
+                ))}
+            </select>
+          </label>
+          <label htmlFor="condition">
+            {'Condição: '}
+            <select
+              data-testid="comparison-filter"
+              name="condition"
+              value={ selected.condition }
+              onChange={ (e) => setSelected({ ...selected, condition: e.target.value }) }
+            >
+              <option>maior que</option>
+              <option>menor que</option>
+              <option>igual a</option>
+            </select>
+          </label>
+          <input
+            placeholder="Insert a number"
+            data-testid="value-filter"
+            type="number"
+            name="filterNumber"
+            value={ selected.value }
+            onChange={ (e) => setSelected({ ...selected, value: e.target.value }) }
+          />
+          <button
+            data-testid="button-filter"
+            onClick={ clickButtonFilter }
+          >
+            Filtrar
+          </button>
+          <button
+            data-testid="button-remove-filters"
+            onClick={ clickButtonRemoveAllFilter }
+          >
+            Remover todas as filtragens
+          </button>
+        </div>
+        <div className="container-filters-order">
+          <select
+            data-testid="column-sort"
+            value={ preview.column }
+            onChange={ (e) => setPreview({ ...preview, column: e.target.value }) }
+          >
+            { opitions.map((column) => (
+              <option key={ column } value={ column }>
                 { column }
               </option>
-            ))}
-        </select>
-        <select
-          data-testid="comparison-filter"
-          value={ selected.condition }
-          onChange={ (e) => setSelected({ ...selected, condition: e.target.value }) }
-        >
-          <option>maior que</option>
-          <option>menor que</option>
-          <option>igual a</option>
-        </select>
-        <input
-          placeholder="Insert a number"
-          data-testid="value-filter"
-          type="number"
-          name="filterNumber"
-          value={ selected.value }
-          onChange={ (e) => setSelected({ ...selected, value: e.target.value }) }
-        />
-        <button
-          data-testid="button-filter"
-          onClick={ clickButtonFilter }
-        >
-          FILTRAR
-        </button>
-        <button
-          data-testid="button-remove-filters"
-          onClick={ clickButtonRemoveAllFilter }
-        >
-          REMOVER FILTROS
-        </button>
-        <select
-          data-testid="column-sort"
-          value={ preview.column }
-          onChange={ (e) => setPreview({ ...preview, column: e.target.value }) }
-        >
-          { opitions.map((column) => (
-            <option key={ column } value={ column }>
-              { column }
-            </option>
-          )) }
-        </select>
-        <input
-          type="radio"
-          data-testid="column-sort-input-asc"
-          value="ASC"
-          name="Opition"
-          onClick={ (e) => setPreview({ ...preview, direction: e.target.value }) }
-        />
-        {' '}
-        Ascendente
-        <input
-          type="radio"
-          data-testid="column-sort-input-desc"
-          value="DESC"
-          name="Opition"
-          onClick={ (e) => setPreview({ ...preview, direction: e.target.value }) }
-        />
-        {' '}
-        Descendente
-        {' '}
-        <button
-          type="button"
-          data-testid="column-sort-button"
-          onClick={ clickButtonOrderSubmit }
-        >
-          Ordenar
-        </button>
+            )) }
+          </select>
+          Ascendente
+          <input
+            type="radio"
+            data-testid="column-sort-input-asc"
+            value="ASC"
+            name="Opition"
+            onClick={ (e) => setPreview({ ...preview, direction: e.target.value }) }
+          />
+          Descendente
+          <input
+            type="radio"
+            data-testid="column-sort-input-desc"
+            value="DESC"
+            name="Opition"
+            onClick={ (e) => setPreview({ ...preview, direction: e.target.value }) }
+          />
+          <button
+            type="button"
+            data-testid="column-sort-button"
+            onClick={ clickButtonOrderSubmit }
+          >
+            Ordenar
+          </button>
+        </div>
       </div>
-      <div>
+      <div className="filter-online-container">
         { numberFilter.map((filter, index) => (
-          <p key={ index } data-testid="filter">
-            { filter.column }
-            {' '}
-            { filter.condition }
-            {' '}
-            { filter.value }
-            {' '}
-            <button
-              id={ filter.id }
-              onClick={ clickButtonRemoveSelectedFilter }
-            >
-              del
-            </button>
-          </p>
+          <div className="filter-online" key={ index }>
+            <p data-testid="filter" className="text-filter-online">
+              { filter.column }
+              {' '}
+              { filter.condition }
+              {' '}
+              { filter.value }
+              {' '}
+              <button
+                id={ filter.id }
+                onClick={ clickButtonRemoveSelectedFilter }
+              >
+                del
+              </button>
+            </p>
+          </div>
         )) }
       </div>
     </div>

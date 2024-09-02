@@ -1,0 +1,82 @@
+.container-header {
+  align-items: center;
+  height: 100%;
+  margin-bottom: 140px;
+  text-align: center;
+}
+
+.container-filters {
+  align-items: center;
+  background-color: #f1f1f1;
+  border-radius: 0.35em;
+  box-shadow: 0 0.2em 0.35em hsla(0, 0%, 47%, 0.411);
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: column;
+  gap: 0.3em;
+  justify-content: space-around;
+  margin: -8em auto 1.25em;
+  min-height: 10em;
+  padding: 1em;
+  width: 80%;
+}
+
+.container-filters select {
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.container-filters button {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.container-filters-name input {
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  height: 2em;
+  margin-top: 0.3em;
+  padding: 0.6em;
+  text-indent: 0.5em;
+  width: 30em;
+}
+
+.container-filters-numeric {
+  display: flex;
+  gap: 1.2em;
+  text-align: center;
+}
+
+.container-filters-order {
+  align-items: center;
+  display: flex;
+  gap: 1.2em;
+}
+
+.filter-online-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: center;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.filter-online {
+  align-self: center;
+  background-color: rgb(58, 106, 11);
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  font-size: 1em;
+  justify-content: center;
+  max-width: 30%;
+  padding: 1em;
+}
+
+.text-filter-online {
+  font-size: 20px;
+}
