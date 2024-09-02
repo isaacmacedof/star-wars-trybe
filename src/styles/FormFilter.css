@@ -5,6 +5,11 @@
   text-align: center;
 }
 
+.container-header h1 {
+  color: white;
+  font-size: 2.5em;
+}
+
 .container-filters {
   align-items: center;
   background-color: #f1f1f1;
